@@ -52,5 +52,26 @@ public class Shooter : MonoBehaviour
     candyRigidBody.AddTorque(new Vector3(0,shotTorque,0));
 
     candyManager.ConsumeCandy();
+
+    ConsumPower();
+
+    }
+    void OnGUI()
+    {
+        GUI.color = Color.black;
+
+        string label = "";
+        for(int i=0;i<shotPower;i++)label = label+"+";
+            GUI.Label(new Rect(50,65,100,30),label);
+    }
+    void ConsumPower()
+    {
+        shotPower--;
+        StartCoroutine(RecoverPower());
+    }
+    IEnumerator RecoverPower()
+    {
+        yield return new WaitForSeconds(RecoverySeconds);
+        shotPower++;
     }
 }
